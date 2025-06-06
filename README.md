@@ -1,7 +1,7 @@
 ### Prerequisites
 
 - NPM and Node.js installed
-- MongoDB cluster created and added to the system's environment variable path
+- MongoDB cluster created and added to the system's environment variable
 
 ### Installing
 
