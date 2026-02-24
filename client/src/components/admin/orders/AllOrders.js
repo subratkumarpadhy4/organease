@@ -5,7 +5,7 @@ import { OrderContext } from "./index";
 import { fetchData, editOrderReq, deleteOrderReq } from "./Actions";
 
 const apiURL =
-  process.env.REACT_APP_API_URL || "https://organease-41ii.vercel.app";
+  process.env.REACT_APP_API_URL || "";
 
 // Assuming pName is a number representing hours
 

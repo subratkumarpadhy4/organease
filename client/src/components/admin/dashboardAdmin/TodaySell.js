@@ -5,7 +5,7 @@ import { DashboardContext } from "./";
 import { todayAllOrders } from "./Action";
 
 const apiURL =
-  process.env.REACT_APP_API_URL || "https://organease-41ii.vercel.app";
+  process.env.REACT_APP_API_URL || "";
 
 const SellTable = () => {
   const history = useHistory();

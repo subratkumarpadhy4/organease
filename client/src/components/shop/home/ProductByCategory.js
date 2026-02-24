@@ -4,7 +4,7 @@ import Layout from "../layout";
 import { productByCategory } from "../../admin/products/FetchApi";
 
 const apiURL =
-  process.env.REACT_APP_API_URL || "https://organease-41ii.vercel.app";
+  process.env.REACT_APP_API_URL || "";
 
 const Submenu = ({ category }) => {
   const history = useHistory();

@@ -1,6 +1,6 @@
 import axios from "axios";
 const apiURL =
-  process.env.REACT_APP_API_URL || "https://organease-41ii.vercel.app";
+  process.env.REACT_APP_API_URL || "";
 
 export const getSingleProduct = async (pId) => {
   try {

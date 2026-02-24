@@ -3,7 +3,7 @@ import { DashboardContext } from "./";
 import { uploadImage, sliderImages, deleteImage } from "./Action";
 
 const apiURL =
-  process.env.REACT_APP_API_URL || "https://organease-41ii.vercel.app";
+  process.env.REACT_APP_API_URL || "";
 
 const Customize = () => {
   const { data, dispatch } = useContext(DashboardContext);

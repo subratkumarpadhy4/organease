@@ -6,7 +6,7 @@ import { getAllProduct, productByPrice } from "../../admin/products/FetchApi";
 import "./style.css";
 
 const apiURL =
-  process.env.REACT_APP_API_URL || "https://organease-41ii.vercel.app";
+  process.env.REACT_APP_API_URL || "";
 
 const CategoryList = () => {
   const history = useHistory();
