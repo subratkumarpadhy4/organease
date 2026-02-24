@@ -39,12 +39,12 @@ const Navber = (props) => {
             >
               View Organs
             </span>
-            {localStorage.getItem("jwt") && !isAdmin() ? (
+            {localStorage.getItem("jwt") ? (
               <span
                 className="hover:bg-gray-200 px-4 py-3 rounded-lg font-light tracking-widest hover:text-gray-800 cursor-pointer"
-                onClick={(e) => history.push("/user/orders")}
+                onClick={(e) => history.push(isAdmin() ? "/admin/dashboard" : "/user/orders")}
               >
-                My Requests
+                {isAdmin() ? "Admin Dashboard" : "My Requests"}
               </span>
             ) : null}
             {/* <span
@@ -394,12 +394,12 @@ const Navber = (props) => {
             >
               View Organs
             </span>
-            {localStorage.getItem("jwt") && !isAdmin() ? (
+            {localStorage.getItem("jwt") ? (
               <span
                 className="font-medium text-lg tracking-widest hover:text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-lg cursor-pointer"
-                onClick={(e) => history.push("/user/orders")}
+                onClick={(e) => history.push(isAdmin() ? "/admin/dashboard" : "/user/orders")}
               >
-                My Requests
+                {isAdmin() ? "Admin Dashboard" : "My Requests"}
               </span>
             ) : null}
             {/* <span
