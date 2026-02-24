@@ -34,3 +34,18 @@
     *   The system must pull live (or intelligently simulated) metrics tracking the **Supply vs. Demand gap**.
     *   Crucially, this data must be broken down *per organ category*. (e.g., Lungs: 12 Available / 4,300 Waiting | Kidneys: 42 Available / 112,000 Waiting).
 *   **Mission Impact:** By forcefully surfacing the waitlist data for each individual organ, OrganIQ proves to the user exactly why the platform exists—transforming OrganIQ from a standard e-commerce clone into a mission-critical tool fighting the Indian organ shortage crisis.
+
+## 6. AI-Driven "Cold Ischemia" Transit Optimizer (Hackathon Winner)
+*   **The Problem:** Hospitals can blindly request an organ even if the geographical distance makes it scientifically impossible for the organ to survive the transit time.
+*   **The Concept:** Integrate a live mapping engine (e.g., Google Maps Matrix API) into the Request checkout flow.
+*   **Implementation Flow:** The backend actively calculates: `Geographical Distance + Traffic Algorithms + Flight Availability = Transit Time`. If the calculated transit time exceeds the organ's specific "Cold Ischemia Limit" (e.g., trying to transport a heart on a 6-hour route when it only survives for 4 hours), the software autonomously rejects the request to prevent organ wastage.
+
+## 7. DeepLink "Green Corridor" Police Integration Prototype (Hackathon Winner)
+*   **The Problem:** Transporting organs currently requires manually calling the police to shut down intersections, leading to massive transit delays.
+*   **The Concept:** A distress signal dispatch API built directly into the OrganIQ Admin Dashboard.
+*   **Implementation Flow:** When an admin clicks `[Mark Dispatched]`, the system generates a unique, secure URL (e.g., `organiq.in/transit/TXN-123`) and SMS-texts it to Regional Traffic Authorities via Twilio. When opened on a mobile device, the UI renders a live HTML5 Geolocation map of the ambulance approaching their sector.
+
+## 8. Immutable "Chain of Custody" Ledger (Hackathon Winner)
+*   **The Problem:** Organ trafficking algorithms and black market interception risks.
+*   **The Concept:** Transition completely away from easily altered MongoDB timestamps and build a faux/live Blockchain-based accountability ledger for each organ.
+*   **Implementation Flow:** A dedicated `Chain of Custody` UI. Every time the organ physically changes hands (Donor Hospital ➡️ Transport Courier ➡️ Helicopter Pilot ➡️ Receiving Surgeon), the custodian scans a QR code that creates a cryptographically hashed, non-editable timestamp block in the system.
