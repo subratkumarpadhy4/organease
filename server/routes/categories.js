@@ -4,17 +4,8 @@ const categoryController = require("../controller/categories");
 const multer = require("multer");
 const { loginCheck } = require("../middleware/auth");
 
-// Image Upload setting
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./public/uploads/categories");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "_" + file.originalname);
-  },
-});
-
-const upload = multer({ storage: storage });
+// Use memory storage instead of disk (Vercel has read-only filesystem)
+const upload = multer({ storage: multer.memoryStorage() });
 
 router.get("/all-category", categoryController.getAllCategory);
 router.post(

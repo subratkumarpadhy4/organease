@@ -1,32 +1,12 @@
 const productModel = require("../models/products");
-const fs = require("fs");
-const path = require("path");
+
+// Helper: convert multer memory file to base64 data URL
+function fileToBase64(file) {
+  const mimeType = file.mimetype || "image/jpeg";
+  return `data:${mimeType};base64,${file.buffer.toString("base64")}`;
+}
 
 class Product {
-  // Delete Image from uploads -> products folder
-  static deleteImages(images, mode) {
-    var basePath =
-      path.resolve(__dirname + "../../") + "/public/uploads/products/";
-    console.log(basePath);
-    for (var i = 0; i < images.length; i++) {
-      let filePath = "";
-      if (mode == "file") {
-        filePath = basePath + `${images[i].filename}`;
-      } else {
-        filePath = basePath + `${images[i]}`;
-      }
-      console.log(filePath);
-      if (fs.existsSync(filePath)) {
-        console.log("Exists image");
-      }
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          return err;
-        }
-      });
-    }
-  }
-
   async getAllProduct(req, res) {
     try {
       let Products = await productModel
@@ -45,7 +25,7 @@ class Product {
     let { pName, pDescription, pPrice, pQuantity, pCategory, pOffer, pStatus } =
       req.body;
     let images = req.files;
-    // Validation
+
     if (
       !pName |
       !pDescription |
@@ -55,26 +35,18 @@ class Product {
       !pOffer |
       !pStatus
     ) {
-      Product.deleteImages(images, "file");
       return res.json({ error: "All filled must be required" });
-    }
-    // Validate Name and description
-    else if (pName.length > 255 || pDescription.length > 3000) {
-      Product.deleteImages(images, "file");
+    } else if (pName.length > 255 || pDescription.length > 3000) {
       return res.json({
         error: "Name 255 & Description must not be 3000 charecter long",
       });
-    }
-    // Validate Images
-    else if (images.length !== 2) {
-      Product.deleteImages(images, "file");
+    } else if (images.length !== 2) {
       return res.json({ error: "Must need to provide 2 images" });
     } else {
       try {
-        let allImages = [];
-        for (const img of images) {
-          allImages.push(img.filename);
-        }
+        // Convert uploaded files to base64
+        let allImages = images.map((img) => fileToBase64(img));
+
         let newProduct = new productModel({
           pImages: allImages,
           pName,
@@ -105,11 +77,9 @@ class Product {
       pCategory,
       pOffer,
       pStatus,
-      pImages,
     } = req.body;
     let editImages = req.files;
 
-    // Validate other fileds
     if (
       !pId |
       !pName |
@@ -121,16 +91,11 @@ class Product {
       !pStatus
     ) {
       return res.json({ error: "All filled must be required" });
-    }
-    // Validate Name and description
-    else if (pName.length > 255 || pDescription.length > 3000) {
+    } else if (pName.length > 255 || pDescription.length > 3000) {
       return res.json({
         error: "Name 255 & Description must not be 3000 charecter long",
       });
-    }
-    // Validate Update Images
-    else if (editImages && editImages.length == 1) {
-      Product.deleteImages(editImages, "file");
+    } else if (editImages && editImages.length == 1) {
       return res.json({ error: "Must need to provide 2 images" });
     } else {
       let editData = {
@@ -142,20 +107,14 @@ class Product {
         pOffer,
         pStatus,
       };
-      if (editImages.length == 2) {
-        let allEditImages = [];
-        for (const img of editImages) {
-          allEditImages.push(img.filename);
-        }
+      if (editImages && editImages.length == 2) {
+        // Convert uploaded files to base64
+        let allEditImages = editImages.map((img) => fileToBase64(img));
         editData = { ...editData, pImages: allEditImages };
-        Product.deleteImages(pImages.split(","), "string");
       }
       try {
-        let editProduct = productModel.findByIdAndUpdate(pId, editData);
-        editProduct.exec((err) => {
-          if (err) console.log(err);
-          return res.json({ success: "Product edit successfully" });
-        });
+        await productModel.findByIdAndUpdate(pId, editData);
+        return res.json({ success: "Product edit successfully" });
       } catch (err) {
         console.log(err);
       }
@@ -168,11 +127,8 @@ class Product {
       return res.json({ error: "All filled must be required" });
     } else {
       try {
-        let deleteProductObj = await productModel.findById(pId);
         let deleteProduct = await productModel.findByIdAndDelete(pId);
         if (deleteProduct) {
-          // Delete Image from uploads -> products folder
-          Product.deleteImages(deleteProductObj.pImages, "string");
           return res.json({ success: "Product deleted successfully" });
         }
       } catch (err) {
@@ -278,49 +234,27 @@ class Product {
     if (!pId || !rating || !review || !uId) {
       return res.json({ error: "All filled must be required" });
     } else {
-      let checkReviewRatingExists = await productModel.findOne({ _id: pId });
-      if (checkReviewRatingExists.pRatingsReviews.length > 0) {
-        checkReviewRatingExists.pRatingsReviews.map((item) => {
-          if (item.user === uId) {
-            return res.json({ error: "Your already reviewd the product" });
-          } else {
-            try {
-              let newRatingReview = productModel.findByIdAndUpdate(pId, {
-                $push: {
-                  pRatingsReviews: {
-                    review: review,
-                    user: uId,
-                    rating: rating,
-                  },
-                },
-              });
-              newRatingReview.exec((err, result) => {
-                if (err) {
-                  console.log(err);
-                }
-                return res.json({ success: "Thanks for your review" });
-              });
-            } catch (err) {
-              return res.json({ error: "Cart product wrong" });
+      try {
+        let checkReviewRatingExists = await productModel.findOne({ _id: pId });
+        let alreadyReviewed = false;
+        if (checkReviewRatingExists.pRatingsReviews.length > 0) {
+          checkReviewRatingExists.pRatingsReviews.forEach((item) => {
+            if (item.user.toString() === uId) {
+              alreadyReviewed = true;
             }
-          }
-        });
-      } else {
-        try {
-          let newRatingReview = productModel.findByIdAndUpdate(pId, {
-            $push: {
-              pRatingsReviews: { review: review, user: uId, rating: rating },
-            },
           });
-          newRatingReview.exec((err, result) => {
-            if (err) {
-              console.log(err);
-            }
-            return res.json({ success: "Thanks for your review" });
-          });
-        } catch (err) {
-          return res.json({ error: "Cart product wrong" });
         }
+        if (alreadyReviewed) {
+          return res.json({ error: "You already reviewed the product" });
+        }
+        await productModel.findByIdAndUpdate(pId, {
+          $push: {
+            pRatingsReviews: { review, user: uId, rating },
+          },
+        });
+        return res.json({ success: "Thanks for your review" });
+      } catch (err) {
+        return res.json({ error: "Something went wrong" });
       }
     }
   }
@@ -331,15 +265,10 @@ class Product {
       return res.json({ message: "All filled must be required" });
     } else {
       try {
-        let reviewDelete = productModel.findByIdAndUpdate(pId, {
+        await productModel.findByIdAndUpdate(pId, {
           $pull: { pRatingsReviews: { _id: rId } },
         });
-        reviewDelete.exec((err, result) => {
-          if (err) {
-            console.log(err);
-          }
-          return res.json({ success: "Your review is deleted" });
-        });
+        return res.json({ success: "Your review is deleted" });
       } catch (err) {
         console.log(err);
       }

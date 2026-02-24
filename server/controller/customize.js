@@ -1,9 +1,14 @@
-const fs = require("fs");
 const categoryModel = require("../models/categories");
 const productModel = require("../models/products");
 const orderModel = require("../models/orders");
 const userModel = require("../models/users");
 const customizeModel = require("../models/customize");
+
+// Helper: convert multer memory file to base64 data URL
+function fileToBase64(file) {
+  const mimeType = file.mimetype || "image/jpeg";
+  return `data:${mimeType};base64,${file.buffer.toString("base64")}`;
+}
 
 class Customize {
   async getImages(req, res) {
@@ -18,15 +23,17 @@ class Customize {
   }
 
   async uploadSlideImage(req, res) {
-    let image = req.file.filename;
-    if (!image) {
+    if (!req.file) {
       return res.json({ error: "All field required" });
     }
     try {
-      let newCustomzie = new customizeModel({
+      // Convert uploaded file to base64 and store in DB
+      const image = fileToBase64(req.file);
+
+      let newCustomize = new customizeModel({
         slideImage: image,
       });
-      let save = await newCustomzie.save();
+      let save = await newCustomize.save();
       if (save) {
         return res.json({ success: "Image upload successfully" });
       }
@@ -41,18 +48,9 @@ class Customize {
       return res.json({ error: "All field required" });
     } else {
       try {
-        let deletedSlideImage = await customizeModel.findById(id);
-        const filePath = `../server/public/uploads/customize/${deletedSlideImage.slideImage}`;
-
         let deleteImage = await customizeModel.findByIdAndDelete(id);
         if (deleteImage) {
-          // Delete Image from uploads -> customizes folder
-          fs.unlink(filePath, (err) => {
-            if (err) {
-              console.log(err);
-            }
-            return res.json({ success: "Image deleted successfully" });
-          });
+          return res.json({ success: "Image deleted successfully" });
         }
       } catch (err) {
         console.log(err);
@@ -62,13 +60,11 @@ class Customize {
 
   async getAllData(req, res) {
     try {
-      let Categories = await categoryModel.find({}).count();
-      let Products = await productModel.find({}).count();
-      let Orders = await orderModel.find({}).count();
-      let Users = await userModel.find({}).count();
-      if (Categories && Products && Orders) {
-        return res.json({ Categories, Products, Orders, Users });
-      }
+      let Categories = await categoryModel.countDocuments();
+      let Products = await productModel.countDocuments();
+      let Orders = await orderModel.countDocuments();
+      let Users = await userModel.countDocuments();
+      return res.json({ Categories, Products, Orders, Users });
     } catch (err) {
       console.log(err);
     }

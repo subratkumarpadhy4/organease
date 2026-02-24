@@ -1,6 +1,11 @@
 const { toTitleCase } = require("../config/function");
 const categoryModel = require("../models/categories");
-const fs = require("fs");
+
+// Helper: convert multer memory file to base64 data URL
+function fileToBase64(file) {
+  const mimeType = file.mimetype || "image/jpeg";
+  return `data:${mimeType};base64,${file.buffer.toString("base64")}`;
+}
 
 class Category {
   async getAllCategory(req, res) {
@@ -16,43 +21,32 @@ class Category {
 
   async postAddCategory(req, res) {
     let { cName, cDescription, cStatus } = req.body;
-    let cImage = req.file.filename;
-    const filePath = `../server/public/uploads/categories/${cImage}`;
 
-    if (!cName || !cDescription || !cStatus || !cImage) {
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          console.log(err);
-        }
-        return res.json({ error: "All filled must be required" });
-      });
-    } else {
-      cName = toTitleCase(cName);
-      try {
-        let checkCategoryExists = await categoryModel.findOne({ cName: cName });
-        if (checkCategoryExists) {
-          fs.unlink(filePath, (err) => {
-            if (err) {
-              console.log(err);
-            }
-            return res.json({ error: "Category already exists" });
-          });
-        } else {
-          let newCategory = new categoryModel({
-            cName,
-            cDescription,
-            cStatus,
-            cImage,
-          });
-          await newCategory.save((err) => {
-            if (!err) {
-              return res.json({ success: "Category created successfully" });
-            }
-          });
-        }
-      } catch (err) {
-        console.log(err);
+    if (!cName || !cDescription || !cStatus || !req.file) {
+      return res.json({ error: "All filled must be required" });
+    }
+
+    cName = toTitleCase(cName);
+    try {
+      let checkCategoryExists = await categoryModel.findOne({ cName: cName });
+      if (checkCategoryExists) {
+        return res.json({ error: "Category already exists" });
       }
+
+      // Convert uploaded file to base64 and store in DB
+      const cImage = fileToBase64(req.file);
+
+      let newCategory = new categoryModel({
+        cName,
+        cDescription,
+        cStatus,
+        cImage,
+      });
+      await newCategory.save();
+      return res.json({ success: "Category created successfully" });
+    } catch (err) {
+      console.log(err);
+      return res.json({ error: "Something went wrong" });
     }
   }
 
@@ -82,18 +76,9 @@ class Category {
       return res.json({ error: "All filled must be required" });
     } else {
       try {
-        let deletedCategoryFile = await categoryModel.findById(cId);
-        const filePath = `../server/public/uploads/categories/${deletedCategoryFile.cImage}`;
-
         let deleteCategory = await categoryModel.findByIdAndDelete(cId);
         if (deleteCategory) {
-          // Delete Image from uploads -> categories folder 
-          fs.unlink(filePath, (err) => {
-            if (err) {
-              console.log(err);
-            }
-            return res.json({ success: "Category deleted successfully" });
-          });
+          return res.json({ success: "Category deleted successfully" });
         }
       } catch (err) {
         console.log(err);

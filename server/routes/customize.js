@@ -3,16 +3,8 @@ const router = express.Router();
 const customizeController = require("../controller/customize");
 const multer = require("multer");
 
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/uploads/customize");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "_" + file.originalname);
-  },
-});
-
-const upload = multer({ storage: storage });
+// Use memory storage instead of disk (Vercel has read-only filesystem)
+const upload = multer({ storage: multer.memoryStorage() });
 
 router.get("/get-slide-image", customizeController.getImages);
 router.post("/delete-slide-image", customizeController.deleteSlideImage);

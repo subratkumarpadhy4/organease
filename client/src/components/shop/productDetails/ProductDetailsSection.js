@@ -113,7 +113,7 @@ const ProductDetailsSection = (props) => {
               className={`${
                 count === 0 ? "" : "opacity-25"
               } cursor-pointer w-20 h-20 object-cover object-center`}
-              src={`${apiURL}/uploads/products/${sProduct.pImages[0]}`}
+              src={sProduct.pImages[0] && sProduct.pImages[0].startsWith("data:") ? sProduct.pImages[0] : `${apiURL}/uploads/products/${sProduct.pImages[0]}`}
               alt="pic"
             />
             <img
@@ -123,7 +123,7 @@ const ProductDetailsSection = (props) => {
               className={`${
                 count === 1 ? "" : "opacity-25"
               } cursor-pointer w-20 h-20 object-cover object-center`}
-              src={`${apiURL}/uploads/products/${sProduct.pImages[1]}`}
+              src={sProduct.pImages[1] && sProduct.pImages[1].startsWith("data:") ? sProduct.pImages[1] : `${apiURL}/uploads/products/${sProduct.pImages[1]}`}
               alt="pic"
             />
           </div>
@@ -131,7 +131,7 @@ const ProductDetailsSection = (props) => {
             <div className="relative">
               <img
                 className="w-full"
-                src={`${apiURL}/uploads/products/${sProduct.pImages[count]}`}
+                src={sProduct.pImages[count] && sProduct.pImages[count].startsWith("data:") ? sProduct.pImages[count] : `${apiURL}/uploads/products/${sProduct.pImages[count]}`}
                 alt="Pic"
               />
               <div className="absolute inset-0 flex justify-between items-center mb-4">
