@@ -26,3 +26,11 @@
     *   `[Under Scrutiny]` -> Renders buttons for `[Accept Request]` or `[Reject Details]`
     *   `[Request Accepted]` -> Renders buttons for `[Mark Dispatched]` or `[Cancel Request]`
 *   **Benefit:** This heavily reduces administrative errors, logically enforces correct medical protocol order of operations, and provides a much faster one-click user experience compared to searching through a dropdown list.
+
+## 5. Indian Waitlist Transparency Dashboard (Public Metrics)
+*   **The Problem:** In India, organ donation data is highly fragmented across state-level SOTTOs. Patients and hospitals have zero transparency regarding exactly how many people are waiting for a specific organ versus how many are actually being donated.
+*   **The Concept:** Build a live, data-rich "National/Regional Waitlist" widget directly into the OrganIQ software (either on the Landing Page or prominently within the User Dashboard).
+*   **Implementation Flow:** 
+    *   The system must pull live (or intelligently simulated) metrics tracking the **Supply vs. Demand gap**.
+    *   Crucially, this data must be broken down *per organ category*. (e.g., Lungs: 12 Available / 4,300 Waiting | Kidneys: 42 Available / 112,000 Waiting).
+*   **Mission Impact:** By forcefully surfacing the waitlist data for each individual organ, OrganIQ proves to the user exactly why the platform exists—transforming OrganIQ from a standard e-commerce clone into a mission-critical tool fighting the Indian organ shortage crisis.
