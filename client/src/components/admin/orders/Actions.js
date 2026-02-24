@@ -2,16 +2,19 @@ import { getAllOrder, deleteOrder } from "./FetchApi";
 
 export const fetchData = async (dispatch) => {
   dispatch({ type: "loading", payload: true });
-  let responseData = await getAllOrder();
-  setTimeout(() => {
+  try {
+    let responseData = await getAllOrder();
     if (responseData && responseData.Orders) {
       dispatch({
         type: "fetchOrderAndChangeState",
         payload: responseData.Orders,
       });
-      dispatch({ type: "loading", payload: false });
     }
-  }, 1000);
+  } catch (err) {
+    console.log(err);
+  } finally {
+    dispatch({ type: "loading", payload: false });
+  }
 };
 
 /* This method call the editmodal & dispatch category context */
@@ -55,17 +58,17 @@ export const filterOrder = async (
       setDropdown(!dropdown);
     } else if (type === "Under Scrutiny") {
       newData = responseData.Orders.filter(
-        (item) => item.status === "Processing"
+        (item) => item.status === "Under Scrutiny"
       );
       dispatch({ type: "fetchOrderAndChangeState", payload: newData });
       setDropdown(!dropdown);
     } else if (type === "Request Accepted") {
-      newData = responseData.Orders.filter((item) => item.status === "Shipped");
+      newData = responseData.Orders.filter((item) => item.status === "Request Accepted");
       dispatch({ type: "fetchOrderAndChangeState", payload: newData });
       setDropdown(!dropdown);
     } else if (type === "Expired") {
       newData = responseData.Orders.filter(
-        (item) => item.status === "Delivered"
+        (item) => item.status === "Expired"
       );
       dispatch({ type: "fetchOrderAndChangeState", payload: newData });
       setDropdown(!dropdown);
