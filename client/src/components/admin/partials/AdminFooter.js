@@ -5,10 +5,10 @@ const AdminFooter = (props) => {
   return (
     <Fragment>
       <footer
-        style={{ background: "#303031", color: "#87898A" }}
+        style={{ background: "linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%)", color: "#94a3b8" }}
         className="z-10 py-6 px-4 md:px-12 text-center"
       >
-        Developed By BruteForce © Copyright {moment().format("YYYY")}
+        OrganEase — Organ Donation Management System © {moment().format("YYYY")}
       </footer>
     </Fragment>
   );

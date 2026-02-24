@@ -3,11 +3,55 @@
 
 <head>
     <meta charset="utf-8" />
-    <!-- <link rel="icon" href="%PUBLIC_URL%/favicon.ico" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="OrganEase" />
-    <title>OrganEase | Organ Transfer</title>
+    <meta name="description" content="OrganEase — A smart organ donation management platform that streamlines organ listing, requesting, and transfer between hospitals and procurement centres." />
+    <meta name="keywords" content="OrganEase, organ donation, organ transfer, hospital management, procurement centre, MERN stack" />
+    <meta name="author" content="Subrat Kumar Padhy" />
+    <title>OrganEase | Organ Donation Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/style.css">
+    <style>
+        /* OrganEase Custom Theme */
+        html { font-family: 'Inter', system-ui, -apple-system, sans-serif !important; }
+        
+        /* Refined navbar */
+        nav.fixed, nav.sticky { 
+            backdrop-filter: blur(12px);
+            background: rgba(255,255,255,0.95) !important;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+        
+        /* Teal accent color instead of generic yellow/gray */
+        .bg-yellow-700 { background-color: #0d9488 !important; }
+        .text-yellow-700, .hover\:text-yellow-700:hover { color: #0d9488 !important; }
+        .bg-black { background-color: #0f172a !important; }
+        
+        /* Refined buttons */
+        .bg-gray-800 { background-color: #0f766e !important; }
+        
+        /* Card hover effects */
+        .col-span-1:hover { transition: transform 0.2s ease; }
+        
+        /* Admin sidebar refinement */
+        .bg-gray-900 { background-color: #0f172a !important; }
+        
+        /* Smooth transitions globally */
+        * { transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease; }
+        img, svg { transition: none; }
+        
+        /* Cart modal refinement */
+        div[style*="background: #303031"], div[style*="background: rgb(48, 48, 49)"] {
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%) !important;
+        }
+        
+        /* Login/Signup modal */
+        .bg-white.shadow-lg { box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15) !important; }
+        
+        /* Loading spinner color */
+        .animate-spin { color: #0d9488 !important; }
+    </style>
 </head>
 
 <body id="page-top">
