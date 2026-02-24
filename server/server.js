@@ -50,6 +50,15 @@ app.use("/api", brainTreeRouter);
 app.use("/api/order", orderRouter);
 app.use("/api/customize", customizeRouter);
 
+app.get("/api/health", (req, res) => {
+  res.json({
+    status: "ok",
+    db_defined: !!process.env.DATABASE,
+    db_length: process.env.DATABASE ? process.env.DATABASE.length : 0,
+    node_version: process.version
+  });
+});
+
 // Run Server
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
