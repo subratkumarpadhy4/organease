@@ -1,7 +1,7 @@
 {
-  "name": "OrganEase",
-  "version": "Mark 1",
-  "description": "Organ Tranfer WEbApp",
+  "name": "organiq",
+  "version": "1.0.0",
+  "description": "OrganIQ - Smart Organ Donation Management System",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hasan-py/MERN_Stack_Project_Hayroo_Ecommerce"
+    "url": "https://github.com/subratkumarpadhy4/organease"
   },
-  "author": "Hasan | https://hasan-py.github.io",
-  "license": "ISC",
+  "author": "Subrat Kumar Padhy",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hasan-py/MERN_Stack_Project_Hayroo_Ecommerce/issues"
+    "url": "https://github.com/subratkumarpadhy4/organease/issues"
   },
-  "homepage": "https://github.com/hasan-py/MERN_Stack_Project_Hayroo_Ecommerce#readme",
+  "homepage": "https://organease.vercel.app",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "braintree": "^3.0.0",
