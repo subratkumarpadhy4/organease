@@ -19,16 +19,19 @@ const AllProduct = (props) => {
 
   const fetchData = async () => {
     setLoading(true);
-    let responseData = await getAllProduct();
-    setTimeout(() => {
+    try {
+      let responseData = await getAllProduct();
       if (responseData && responseData.Products) {
         dispatch({
           type: "fetchProductsAndChangeState",
           payload: responseData.Products,
         });
-        setLoading(false);
       }
-    }, 1000);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const deleteProductReq = async (pId) => {
