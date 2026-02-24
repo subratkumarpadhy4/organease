@@ -3,7 +3,8 @@ import { useHistory, useParams } from "react-router-dom";
 import Layout from "../layout";
 import { productByCategory } from "../../admin/products/FetchApi";
 
-const apiURL = process.env.REACT_APP_API_URL;
+const apiURL =
+  process.env.REACT_APP_API_URL || "https://organease-41ii.vercel.app";
 
 const Submenu = ({ category }) => {
   const history = useHistory();

@@ -2,7 +2,8 @@ import React, { Fragment, useContext, useEffect } from "react";
 import { DashboardContext } from "./";
 import { uploadImage, sliderImages, deleteImage } from "./Action";
 
-const apiURL = process.env.REACT_APP_API_URL;
+const apiURL =
+  process.env.REACT_APP_API_URL || "https://organease-41ii.vercel.app";
 
 const Customize = () => {
   const { data, dispatch } = useContext(DashboardContext);

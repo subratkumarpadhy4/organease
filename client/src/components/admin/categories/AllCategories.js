@@ -3,7 +3,8 @@ import { getAllCategory, deleteCategory } from "./FetchApi";
 import { CategoryContext } from "./index";
 import moment from "moment";
 
-const apiURL = process.env.REACT_APP_API_URL;
+const apiURL =
+  process.env.REACT_APP_API_URL || "https://organease-41ii.vercel.app";
 
 const AllCategory = (props) => {
   const { data, dispatch } = useContext(CategoryContext);
