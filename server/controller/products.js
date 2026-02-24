@@ -27,12 +27,12 @@ class Product {
     let images = req.files;
 
     if (
-      !pName |
-      !pDescription |
-      !pPrice |
-      !pQuantity |
-      !pCategory |
-      !pOffer |
+      pName === undefined || pName === "" ||
+      !pDescription ||
+      pPrice === undefined || pPrice === "" ||
+      pQuantity === undefined || pQuantity === "" ||
+      !pCategory ||
+      pOffer === undefined || pOffer === "" ||
       !pStatus
     ) {
       return res.json({ error: "All filled must be required" });
@@ -81,13 +81,13 @@ class Product {
     let editImages = req.files;
 
     if (
-      !pId |
-      !pName |
-      !pDescription |
-      !pPrice |
-      !pQuantity |
-      !pCategory |
-      !pOffer |
+      !pId ||
+      pName === undefined || pName === "" ||
+      !pDescription ||
+      pPrice === undefined || pPrice === "" ||
+      pQuantity === undefined || pQuantity === "" ||
+      !pCategory ||
+      pOffer === undefined || pOffer === "" ||
       !pStatus
     ) {
       return res.json({ error: "All filled must be required" });
