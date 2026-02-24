@@ -125,7 +125,7 @@ const OrdersComponent = () => {
       <div className="flex flex-col w-full my-4 md:my-0 md:w-9/12 md:px-8">
         <div className="border">
           <div className="py-4 px-4 text-lg font-semibold border-t-2 border-yellow-700">
-            Orders
+            My Requests
           </div>
           <hr />
           <div className="overflow-auto bg-white shadow-lg p-4">
@@ -165,7 +165,11 @@ const OrdersComponent = () => {
 
                         <div className="flex flex-col items-center">
                           <span className="text-2xl font-bold text-gray-800 tracking-wider">No Pending Requests</span>
-                          <span className="text-gray-500 mt-2">Your hospital's OrganIQ request timeline is currently empty.</span>
+                          <span className="text-gray-500 mt-2 mb-6">Your hospital's OrganIQ request timeline is currently empty.</span>
+
+                          <a href="/" className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition duration-300 shadow-lg mt-4">
+                            + Initiate New Request
+                          </a>
                         </div>
                       </div>
                     </td>

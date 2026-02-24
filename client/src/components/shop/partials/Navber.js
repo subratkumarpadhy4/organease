@@ -39,6 +39,14 @@ const Navber = (props) => {
             >
               View Organs
             </span>
+            {localStorage.getItem("jwt") && !isAdmin() ? (
+              <span
+                className="hover:bg-gray-200 px-4 py-3 rounded-lg font-light tracking-widest hover:text-gray-800 cursor-pointer"
+                onClick={(e) => history.push("/user/orders")}
+              >
+                My Requests
+              </span>
+            ) : null}
             {/* <span
               className="hover:bg-gray-200 px-4 py-3 rounded-lg font-light tracking-widest hover:text-gray-800 cursor-pointer"
               onClick={(e) => history.push("/blog")}
@@ -86,9 +94,9 @@ const Navber = (props) => {
           <div className="flex items-right col-span-2 lg:col-span-1 flex justify-end">
             {/*  WishList Page Button */}
             <div
-              // onClick={(e) => history.push("/wish-list")}
-              // className="hover:bg-gray-200 rounded-lg px-2 py-2 cursor-pointer"
-              // title="Wishlist"
+            // onClick={(e) => history.push("/wish-list")}
+            // className="hover:bg-gray-200 rounded-lg px-2 py-2 cursor-pointer"
+            // title="Wishlist"
             >
               {/* <svg
                 className={`${
@@ -138,21 +146,21 @@ const Navber = (props) => {
                             className="flex space-x-2 py-2 px-8 hover:bg-gray-400 cursor-pointer"
                           >
                             <span>
-                            <svg
-  class="w-8 h-8 text-black hover:text-green-700"
-  fill="none"
-  stroke="currentColor"
-  viewBox="0 0 24 24"
-  xmlns="http://www.w3.org/2000/svg"
-  width="16" height="16"
->
-  <path
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    stroke-width="2"
-    d="M12 19V5M5 12l7-7 7 7"
-  />
-</svg>
+                              <svg
+                                class="w-8 h-8 text-black hover:text-green-700"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16" height="16"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M12 19V5M5 12l7-7 7 7"
+                                />
+                              </svg>
 
                             </span>
                             <span>Requests</span>
@@ -183,8 +191,8 @@ const Navber = (props) => {
                             onClick={(e) => history.push("/wish-list")}
                             className="flex space-x-2 py-2 px-8 hover:bg-gray-400 cursor-pointer"
                           > */}
-                            {/* <span> */}
-                              {/* <svg
+                          {/* <span> */}
+                          {/* <svg
                                 className="w-6 h-6"
                                 fill="none"
                                 stroke="currentColor"
@@ -199,7 +207,7 @@ const Navber = (props) => {
                                 />
                               </svg> */}
                           {/* </span> */}
-                            {/* <span>My Wishlist</span> */}
+                          {/* <span>My Wishlist</span> */}
                           {/* </span> */}
                           {/* <span
                             onClick={(e) => history.push("/user/setting")}
@@ -341,28 +349,28 @@ const Navber = (props) => {
               className="hover:bg-gray-200 px-2 py-2 rounded-lg relative cursor-pointer"
               title="Organs"
             >
-            <svg
-  class="w-8 h-8 text-black hover:text-green-700"
-  fill="none"
-  stroke="currentColor"
-  viewBox="0 0 24 24"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <path
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    stroke-width="2"
-    d="M12 3V1M8 4v3H4v12a2 2 0 002 2h12a2 2 0 002-2V7h-4V4h-4zm4 0h-2V1h2v3z"
-  />
-  <path
-    fill="currentColor"
-    d="M12 15.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"
-  />
-  <path
-    fill="currentColor"
-    d="M16.5 12a4.5 4.5 0 00-3.5-4.4v1.9a2.5 2.5 0 015 0v-.5M12 9V6.5M15 9V6.5M9 9V6.5M6 12h12M7 15h10a2 2 0 002-2v-1.5M12 15.5v-3"
-  />
-</svg>
+              <svg
+                class="w-8 h-8 text-black hover:text-green-700"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 3V1M8 4v3H4v12a2 2 0 002 2h12a2 2 0 002-2V7h-4V4h-4zm4 0h-2V1h2v3z"
+                />
+                <path
+                  fill="currentColor"
+                  d="M12 15.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"
+                />
+                <path
+                  fill="currentColor"
+                  d="M16.5 12a4.5 4.5 0 00-3.5-4.4v1.9a2.5 2.5 0 015 0v-.5M12 9V6.5M15 9V6.5M9 9V6.5M6 12h12M7 15h10a2 2 0 002-2v-1.5M12 15.5v-3"
+                />
+              </svg>
 
 
 
@@ -386,6 +394,14 @@ const Navber = (props) => {
             >
               View Organs
             </span>
+            {localStorage.getItem("jwt") && !isAdmin() ? (
+              <span
+                className="font-medium text-lg tracking-widest hover:text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-lg cursor-pointer"
+                onClick={(e) => history.push("/user/orders")}
+              >
+                My Requests
+              </span>
+            ) : null}
             {/* <span
               className="font-medium text-lg tracking-widest hover:text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-lg cursor-pointer"
               onClick={(e) => history.push("/blog")}
