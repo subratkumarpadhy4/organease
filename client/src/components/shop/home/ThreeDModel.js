@@ -14,14 +14,25 @@ const ThreeDModel = () => {
         const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
         camera.position.z = 4;
 
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(width, height);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        mountRef.current.appendChild(renderer.domElement);
+        let renderer;
+        let controls;
 
-        const controls = new OrbitControls(camera, renderer.domElement);
-        controls.enableZoom = false;
-        controls.enablePan = false;
+        try {
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(width, height);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            mountRef.current.appendChild(renderer.domElement);
+
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableZoom = false;
+            controls.enablePan = false;
+        } catch (error) {
+            console.error("WebGL context could not be created:", error);
+            if (mountRef.current) {
+                mountRef.current.innerHTML = '<div class="flex items-center justify-center w-full h-full text-white text-center p-4">WebGL is block or unsupported on this device. Please enable Hardware Acceleration.</div>';
+            }
+            return; // Halt 3D rendering
+        }
 
         // Lighting
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
