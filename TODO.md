@@ -17,3 +17,12 @@
 *   **The Concept:** Inject a premium, high-quality 3D animated element (e.g., a rotating medical cross, floating anatomical lungs/heart, or a glowing OrganIQ shield) into the empty spaces of the dashboard to create a futuristic, high-tech medical logistics environment.
 *   **Implementation Path:** Utilize libraries like `framer-motion` for buttery-smooth CSS hover physics, or integrate `react-three-fiber` along with a lightweight `.gltf` 3D model if we aim for true interactive 3D assets that follow the user's cursor.
 *   **Placement Candidates:** Can be positioned as a massive, subtle background watermark, a persistent widget next to the new "My Requests" tracker, or as a vibrant "Welcome Desk" placeholder component when a hospital has 0 pending requests.
+
+## 4. Strict Admin Workflow System (Guided Action Buttons)
+*   **The Problem:** The current Admin Dashboard uses a simple dropdown menu for updating organ request statuses. This allows admins to accidentally or maliciously skip crucial pipeline steps (e.g., jumping from "Not Processed" straight to "Expired" or "Delivered").
+*   **The Solution:** Replace the free-form `UpdateOrderModal` dropdown with a legally bound **State Machine UI**. 
+*   **Implementation Flow:** The system should inspect the order's current `status` and strictly render only the chronologically legal next steps as primary action buttons:
+    *   `[Not Processed]` -> Renders buttons for `[Begin Scrutiny]` or `[Cancel Request]`
+    *   `[Under Scrutiny]` -> Renders buttons for `[Accept Request]` or `[Reject Details]`
+    *   `[Request Accepted]` -> Renders buttons for `[Mark Dispatched]` or `[Cancel Request]`
+*   **Benefit:** This heavily reduces administrative errors, logically enforces correct medical protocol order of operations, and provides a much faster one-click user experience compared to searching through a dropdown list.
