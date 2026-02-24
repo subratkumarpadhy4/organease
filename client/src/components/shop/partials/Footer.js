@@ -5,10 +5,10 @@ const Footer = (props) => {
   return (
     <Fragment>
       <footer
-        style={{ background: "linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%)", color: "#94a3b8" }}
+        style={{ background: "#303031", color: "#87898A" }}
         className="z-10 py-6 px-4 md:px-12 text-center"
       >
-        OrganEase — Organ Donation Management System © {moment().format("YYYY")}
+        OrganEase © Copyright {moment().format("YYYY")}
       </footer>
     </Fragment>
   );
