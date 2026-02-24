@@ -21,6 +21,13 @@ const app = express();
 /* Create All Uploads Folder if not exists | For Uploading Images */
 CreateAllFolder();
 
+// ---- CORS must run before any DB errors so frontend sees real responses ----
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+
 // ---- DB connection (safe for serverless) ----
 const cached = global.__mongooseCached || (global.__mongooseCached = { conn: null, promise: null });
 
@@ -50,7 +57,6 @@ app.use(async (req, res, next) => {
 // Middleware
 app.use(morgan("dev"));
 app.use(cookieParser());
-app.use(cors());
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
