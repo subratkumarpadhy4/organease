@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import ThreeDModel from "./ThreeDModel"; // IMPORT THE NEW 3D COMPONENT
 
 const InfoSection = () => {
     return (
@@ -6,7 +7,7 @@ const InfoSection = () => {
             <section className="m-4 md:mx-8 md:my-16 bg-white shadow-lg rounded-xl overflow-hidden border border-gray-100 p-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
-                    {/* Left Column: Context & The Problem */}
+                    {/* Left Column: Context & The 3D Component */}
                     <div className="flex flex-col space-y-6">
                         <h2 className="text-4xl font-extrabold text-gray-900 tracking-tight leading-tight">
                             Life-Saving Logistics, <br />
@@ -16,17 +17,9 @@ const InfoSection = () => {
                             When a family agrees to donate a loved one's organs, a critical ticking clock begins. OrganIQ exists to eliminate the chaos of medical logistics, bridging the gap between donor hospitals and recipients nationwide.
                         </p>
 
-                        <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
-                            <h4 className="font-bold text-blue-900 mb-2">The Cold Ischemia Clock</h4>
-                            <p className="text-sm text-blue-800">
-                                Every organ has a strict survival timer once extracted:
-                            </p>
-                            <ul className="mt-2 space-y-1 text-sm text-blue-900 font-medium">
-                                <li>• <span className="text-pink-600 font-bold">Heart & Lungs:</span> 4 to 6 hours</li>
-                                <li>• <span className="text-orange-600 font-bold">Liver:</span> 8 to 12 hours</li>
-                                <li>• <span className="text-red-600 font-bold">Pancreas:</span> 12 to 18 hours</li>
-                                <li>• <span className="text-purple-600 font-bold">Kidneys:</span> 24 to 36 hours</li>
-                            </ul>
+                        {/* RENDER THE 3D INTERACTIVE CANVAS HERE */}
+                        <div className="mt-4">
+                            <ThreeDModel />
                         </div>
                     </div>
 
