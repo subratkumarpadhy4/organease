@@ -39,14 +39,24 @@ const Navber = (props) => {
             >
               View Organs
             </span>
-            {localStorage.getItem("jwt") ? (
-              <span
-                className="hover:bg-gray-200 px-4 py-3 rounded-lg font-light tracking-widest hover:text-gray-800 cursor-pointer"
-                onClick={(e) => history.push(isAdmin() ? "/admin/dashboard" : "/user/orders")}
-              >
-                {isAdmin() ? "Admin Dashboard" : "My Requests"}
+            <div className="relative inline-block text-left group cursor-pointer z-50">
+              <span className="hover:bg-gray-200 px-4 py-3 rounded-lg font-light tracking-widest hover:text-gray-800 flex items-center">
+                Menu
+                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
               </span>
-            ) : null}
+              <div className="absolute left-0 mt-1 w-48 bg-white rounded-md shadow-lg hidden group-hover:block border">
+                <div className="py-1">
+                  <span onClick={(e) => { history.push("/"); window.scrollTo({ top: 900, behavior: 'smooth' }); }} className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 font-medium">
+                    Organ Categories
+                  </span>
+                  {localStorage.getItem("jwt") ? (
+                    <span onClick={(e) => history.push(isAdmin() ? "/admin/dashboard" : "/user/orders")} className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 font-medium">
+                      {isAdmin() ? "Admin Dashboard" : "My Requests"}
+                    </span>
+                  ) : null}
+                </div>
+              </div>
+            </div>
             {/* <span
               className="hover:bg-gray-200 px-4 py-3 rounded-lg font-light tracking-widest hover:text-gray-800 cursor-pointer"
               onClick={(e) => history.push("/blog")}
@@ -393,6 +403,12 @@ const Navber = (props) => {
               onClick={(e) => history.push("/")}
             >
               View Organs
+            </span>
+            <span
+              className="font-medium text-lg tracking-widest hover:text-gray-800 hover:bg-gray-200 px-3 py-2 rounded-lg cursor-pointer"
+              onClick={(e) => { history.push("/"); window.scrollTo({ top: 900, behavior: 'smooth' }); }}
+            >
+              Organ Categories
             </span>
             {localStorage.getItem("jwt") ? (
               <span
