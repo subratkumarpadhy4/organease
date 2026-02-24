@@ -114,15 +114,14 @@ export const CheckoutComponent = (props) => {
                       placeholder="+91"
                     />
                   </div>
-                  <DropIn
-                    options={{
-                      authorization: state.clientToken,
-                      // paypal: {
-                      //   flow: "vault",
-                      // },
-                    }}
-                    onInstance={(instance) => (state.instance = instance)}
-                  />
+                  {state.clientToken && state.clientToken.length > 0 ? (
+                    <DropIn
+                      options={{
+                        authorization: state.clientToken,
+                      }}
+                      onInstance={(instance) => (state.instance = instance)}
+                    />
+                  ) : null}
                   <div
                     onClick={(e) =>
                       pay(
@@ -197,7 +196,7 @@ const CheckoutProducts = ({ products }) => {
                     Units : {quantity(product._id)}
                   </div>
                   <div className="font-semibold text-gray-600 text-sm">
-                  PIN Code: {subTotal(product._id, product.pPrice)}
+                    PIN Code: {subTotal(product._id, product.pPrice)}
                   </div>
                 </div>
               </div>
