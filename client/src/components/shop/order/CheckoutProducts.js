@@ -112,11 +112,9 @@ export const CheckoutComponent = (props) => {
                 <div
                   onClick={(e) =>
                     pay(
-                      data,
                       dispatch,
                       state,
                       setState,
-                      null,
                       totalCost,
                       history
                     )

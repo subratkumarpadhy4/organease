@@ -16,11 +16,9 @@ export const fetchData = async (cartListProduct, dispatch) => {
 };
 
 export const pay = async (
-  data,
   dispatch,
   state,
   setState,
-  getPaymentProcess,
   totalCost,
   history
 ) => {
