@@ -47,7 +47,20 @@ const AddProductDetail = ({ categories }) => {
     }
 
     try {
-      let responseData = await createProduct(fData);
+      // Convert images to base64 on frontend to avoid Vercel Multer multipart bugs
+      let b64Images = [];
+      for (const file of fData.pImage) {
+        let b64 = await new Promise((resolve) => {
+          let reader = new FileReader();
+          reader.onload = (e) => resolve(e.target.result);
+          reader.readAsDataURL(file);
+        });
+        b64Images.push(b64);
+      }
+
+      let payload = { ...fData, pImage: b64Images };
+
+      let responseData = await createProduct(payload);
       if (!responseData) {
         setFdata({ ...fData, success: false, error: "Server error (Image might be too large - max 4.5MB combined)" });
         setTimeout(() => {

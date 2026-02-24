@@ -22,9 +22,8 @@ class Product {
   }
 
   async postAddProduct(req, res) {
-    let { pName, pDescription, pPrice, pQuantity, pCategory, pOffer, pStatus } =
-      req.body;
-    let images = req.files;
+    let { pName, pDescription, pPrice, pQuantity, pCategory, pOffer, pStatus, pImage } = req.body;
+    let images = pImage || [];
 
     if (
       pName === undefined || pName === "" ||
@@ -41,14 +40,11 @@ class Product {
         error: "Name 255 & Description must not be 3000 charecter long",
       });
     } else if (images.length !== 2) {
-      return res.json({ error: "Must need to provide 2 images" });
+      return res.json({ error: "Must need to provide exactly 2 images" });
     } else {
       try {
-        // Convert uploaded files to base64
-        let allImages = images.map((img) => fileToBase64(img));
-
         let newProduct = new productModel({
-          pImages: allImages,
+          pImages: images, // already base64 from client
           pName,
           pDescription,
           pPrice,
@@ -78,8 +74,9 @@ class Product {
       pCategory,
       pOffer,
       pStatus,
+      pImages,
+      pEditImages
     } = req.body;
-    let editImages = req.files;
 
     if (
       !pId ||
@@ -96,7 +93,7 @@ class Product {
       return res.json({
         error: "Name 255 & Description must not be 3000 charecter long",
       });
-    } else if (editImages && editImages.length == 1) {
+    } else if (pEditImages && pEditImages.length == 1) {
       return res.json({ error: "Must need to provide 2 images" });
     } else {
       let editData = {
@@ -108,10 +105,9 @@ class Product {
         pOffer,
         pStatus,
       };
-      if (editImages && editImages.length == 2) {
-        // Convert uploaded files to base64
-        let allEditImages = editImages.map((img) => fileToBase64(img));
-        editData = { ...editData, pImages: allEditImages };
+      if (pEditImages && pEditImages.length == 2) {
+        // already base64 from client
+        editData = { ...editData, pImages: pEditImages };
       }
       try {
         await productModel.findByIdAndUpdate(pId, editData);

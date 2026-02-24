@@ -12,8 +12,8 @@ router.post("/product-by-price", productController.getProductByPrice);
 router.post("/wish-product", productController.getWishProduct);
 router.post("/cart-product", productController.getCartProduct);
 
-router.post("/add-product", upload.any(), productController.postAddProduct);
-router.post("/edit-product", upload.any(), productController.postEditProduct);
+router.post("/add-product", productController.postAddProduct);
+router.post("/edit-product", productController.postEditProduct);
 router.post("/delete-product", productController.getDeleteProduct);
 router.post("/single-product", productController.getSingleProduct);
 
