@@ -127,23 +127,23 @@ const AllProduct = (props) => {
 /* Single Product Component */
 const ProductTable = ({ product, deleteProduct, editProduct }) => {
   const createdAt = new Date(product.createdAt); // Convert createdAt to Date object
-            const expirationDate = moment(createdAt).add(product.pName, 'hours'); // Calculate expiration date using moment.js
-            const expirationTimeString = moment(expirationDate).format('LLL'); // Format expiration date into a string
-            const currentTime = moment();
-            if (expirationDate.isBefore(currentTime)) {
-  // Display message indicating that the expiration time has passed
-  console.log('Organ Expired');
-  product.pStatus = "Disabled";
-} else {
-  // Display the expiration time
- 
-  const expirationTimeString = moment(expirationDate).format('YYYY-MM-DD HH:mm:ss');
+  const expirationDate = moment(createdAt).add(product.pName, 'hours'); // Calculate expiration date using moment.js
+  const expirationTimeString = moment(expirationDate).format('LLL'); // Format expiration date into a string
+  const currentTime = moment();
+  if (expirationDate.isBefore(currentTime)) {
+    // Display message indicating that the expiration time has passed
+    console.log('Organ Expired');
+    product.pStatus = "Disabled";
+  } else {
+    // Display the expiration time
 
-  console.log(`Your order will expire on ${expirationTimeString}.`);
-}
+    const expirationTimeString = moment(expirationDate).format('YYYY-MM-DD HH:mm:ss');
 
-            
-// const currentTime = moment();
+    console.log(`Your order will expire on ${expirationTimeString}.`);
+  }
+
+
+  // const currentTime = moment();
 
   return (
     <Fragment>
@@ -152,7 +152,7 @@ const ProductTable = ({ product, deleteProduct, editProduct }) => {
           {/* {product.pPrice.length > 15
             ? product.pDescription.substring(1, 15) + "..."
             : product.pPrice} */}
-             {expirationTimeString}
+          {expirationTimeString}
         </td>
         <td className="p-2 text-left">
           {product.pDescription.slice(0, 15)}...
@@ -176,7 +176,7 @@ const ProductTable = ({ product, deleteProduct, editProduct }) => {
           )}
         </td>
         <td className="p-2 text-center">{product.pQuantity}</td>
-        <td className="p-2 text-center">{product.pCategory.cName}</td>
+        <td className="p-2 text-center">{product.pCategory?.cName || "Unknown"}</td>
         <td className="p-2 text-center">{product.pOffer}</td>
         <td className="p-2 text-center">
           {moment(product.createdAt).format("lll")}
