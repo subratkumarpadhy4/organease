@@ -1,129 +1,69 @@
-import React, { useEffect, useRef } from 'react';
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import React from 'react';
 
 const ThreeDModel = () => {
-    const mountRef = useRef(null);
-
-    useEffect(() => {
-        let width = mountRef.current.clientWidth;
-        let height = mountRef.current.clientHeight;
-
-        const scene = new THREE.Scene();
-
-        const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-        camera.position.z = 4;
-
-        let renderer;
-        let controls;
-
-        try {
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(width, height);
-            renderer.setPixelRatio(window.devicePixelRatio);
-            mountRef.current.appendChild(renderer.domElement);
-
-            controls = new OrbitControls(camera, renderer.domElement);
-            controls.enableZoom = false;
-            controls.enablePan = false;
-        } catch (error) {
-            console.error("WebGL context could not be created:", error);
-            if (mountRef.current) {
-                mountRef.current.innerHTML = '<div class="flex items-center justify-center w-full h-full text-white text-center p-4">WebGL is block or unsupported on this device. Please enable Hardware Acceleration.</div>';
-            }
-            return; // Halt 3D rendering
-        }
-
-        // Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-        scene.add(ambientLight);
-
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
-        directionalLight.position.set(2, 5, 2);
-        scene.add(directionalLight);
-
-        const pointLight = new THREE.PointLight(0x3b82f6, 2, 10);
-        pointLight.position.set(0, 0, 0);
-        scene.add(pointLight);
-
-        // Geometry - Outer Wireframe Cell
-        const outerGeo = new THREE.IcosahedronGeometry(2, 4);
-        const outerMat = new THREE.MeshStandardMaterial({
-            color: 0x60a5fa, // Light blue
-            wireframe: true,
-            transparent: true,
-            opacity: 0.3
-        });
-        const outerMesh = new THREE.Mesh(outerGeo, outerMat);
-        scene.add(outerMesh);
-
-        // Geometry - Inner Solid Core
-        const innerGeo = new THREE.IcosahedronGeometry(1.5, 4);
-        const innerMat = new THREE.MeshStandardMaterial({
-            color: 0x1e3a8a, // Dark blue core
-            roughness: 0.2,
-            metalness: 0.8
-        });
-        const innerMesh = new THREE.Mesh(innerGeo, innerMat);
-        outerMesh.add(innerMesh);
-
-        let frameId;
-        let clock = new THREE.Clock();
-
-        const animate = () => {
-            frameId = requestAnimationFrame(animate);
-
-            const time = clock.getElapsedTime();
-
-            // Gentle floating rotation
-            outerMesh.rotation.x += 0.003;
-            outerMesh.rotation.y += 0.005;
-
-            innerMesh.rotation.y -= 0.002;
-
-            // Organic Pulsing effect (simulated heartbeat / cell breathing)
-            const scale = 1 + Math.sin(time * 1.5) * 0.04;
-            outerMesh.scale.set(scale, scale, scale);
-
-            controls.update();
-            renderer.render(scene, camera);
-        };
-
-        animate();
-
-        const handleResize = () => {
-            if (!mountRef.current) return;
-            width = mountRef.current.clientWidth;
-            height = mountRef.current.clientHeight;
-            renderer.setSize(width, height);
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
-        };
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-            cancelAnimationFrame(frameId);
-            if (mountRef.current && mountRef.current.contains(renderer.domElement)) {
-                mountRef.current.removeChild(renderer.domElement);
-            }
-            outerGeo.dispose();
-            outerMat.dispose();
-            innerGeo.dispose();
-            innerMat.dispose();
-            renderer.dispose();
-        };
-    }, []);
-
     return (
-        <div className="w-full h-64 md:h-96 relative rounded-xl overflow-hidden bg-gradient-to-tr from-gray-900 to-blue-900 flex items-center justify-center filter drop-shadow-2xl">
-            <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
-            <div className="absolute bottom-4 left-6 pointer-events-none">
-                <span className="text-white text-sm font-semibold tracking-wider opacity-80 uppercase">
-                    Interactable Cell Structure
+        <div className="w-full h-64 md:h-96 relative rounded-xl overflow-hidden flex items-center justify-center shadow-inner" style={{ backgroundColor: '#0f172a' }}> {/* Slate 900 */}
+
+            {/* Ambient Background Glow */}
+            <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-64 h-64 rounded-full" style={{ backgroundColor: '#2563eb', filter: 'blur(60px)', opacity: 0.25, animation: 'corePulse 4s infinite' }}></div>
+            </div>
+
+            {/* HTML/CSS Simulated 3D Core Structure */}
+            <div className="relative w-40 h-40 flex items-center justify-center" style={{ perspective: '1000px' }}>
+
+                {/* Outer Ring 1 */}
+                <div className="absolute w-full h-full rounded-full" style={{ border: '2px solid rgba(59, 130, 246, 0.2)', borderTop: '2px solid #3b82f6', borderBottom: '2px solid #3b82f6', animation: 'spin 8s linear infinite' }}></div>
+
+                {/* Outer Ring 2 (Offset 3D Tilt) */}
+                <div className="absolute w-full h-full" style={{ transform: 'rotateX(60deg) rotateY(45deg)', transformStyle: 'preserve-3d' }}>
+                    <div className="w-full h-full rounded-full" style={{ border: '2px solid rgba(99, 102, 241, 0.2)', borderLeft: '2px solid #6366f1', borderRight: '2px solid #6366f1', animation: 'spin 12s linear infinite reverse' }}></div>
+                </div>
+
+                {/* Outer Ring 3 (Multi-axis 3D Tilt) */}
+                <div className="absolute w-full h-full" style={{ transform: 'rotateX(-60deg) rotateZ(30deg)', transformStyle: 'preserve-3d' }}>
+                    <div className="w-full h-full rounded-full" style={{ border: '2px solid rgba(34, 211, 238, 0.2)', borderTop: '2px solid #22d3ee', animation: 'spin 10s linear infinite' }}></div>
+                </div>
+
+                {/* Inner Beating 'Cell Core' */}
+                <div className="relative z-10 w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #60a5fa 0%, #3730a3 100%)', boxShadow: '0 0 30px rgba(59, 130, 246, 0.6)', animation: 'corePulse 1.5s infinite' }}>
+                    <div className="absolute bg-white rounded-full opacity-20" style={{ width: '80%', height: '80%', top: '10%', left: '10%', transform: 'translate(-2px, -2px)' }}></div>
+                </div>
+
+            </div>
+
+            {/* Sci-Fi Grid Overlay */}
+            <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
+
+            <div className="absolute bottom-4 left-6 pointer-events-none flex flex-col z-20">
+                <span className="text-xs font-mono tracking-widest uppercase mb-1" style={{ color: '#60a5fa' }}>
+                    Live Diagnostics
+                </span>
+                <span className="text-white text-sm font-semibold tracking-wider opacity-90 uppercase">
+                    Organ Core Matrix
                 </span>
             </div>
+
+            {/* Status indicators */}
+            <div className="absolute top-4 right-6 pointer-events-none flex flex-col items-end space-y-2 z-20">
+                <div className="flex items-center space-x-2">
+                    <span className="text-xs font-mono" style={{ color: '#93c5fd' }}>SYS.ONLINE</span>
+                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#4ade80', boxShadow: '0 0 8px #4ade80', animation: 'corePulse 2s infinite' }}></div>
+                </div>
+            </div>
+
+            {/* Inline Keyframes to ensure it runs independently of global CSS files */}
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                @keyframes spin {
+                    from { transform: rotate(0deg); }
+                    to { transform: rotate(360deg); }
+                }
+                @keyframes corePulse {
+                    0%, 100% { opacity: 1; transform: scale(1); }
+                    50% { opacity: 0.8; transform: scale(0.95); }
+                }
+            `}} />
         </div>
     );
 };
