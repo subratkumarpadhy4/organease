@@ -49,3 +49,18 @@
 *   **The Problem:** Organ trafficking algorithms and black market interception risks.
 *   **The Concept:** Transition completely away from easily altered MongoDB timestamps and build a faux/live Blockchain-based accountability ledger for each organ.
 *   **Implementation Flow:** A dedicated `Chain of Custody` UI. Every time the organ physically changes hands (Donor Hospital ➡️ Transport Courier ➡️ Helicopter Pilot ➡️ Receiving Surgeon), the custodian scans a QR code that creates a cryptographically hashed, non-editable timestamp block in the system.
+
+## 9. IoT "Smart Cooler" Telemetry Portal (Enterprise Level)
+*   **The Problem:** Organ logistics isn't just about moving a box; it's about keeping the organ alive inside that box using highly specialized coolers.
+*   **The Concept:** Build a "Live Telemetry" dashboard for organs in transit.
+*   **Implementation Flow:** While a real cooler has IoT sensors, the hackathon prototype will use a simulator script that streams real-time data to the frontend via WebSockets (`Socket.io`). When an admin clicks on a dispatched organ, they see a live graph showing the **Internal Temperature**, **Perfusion Fluid Pressure**, and **Battery Level**. If temperatures spike, the dashboard flashes a real-time red alarm.
+
+## 10. HLA (Human Leukocyte Antigen) Genetic Micro-Matching Algorithm
+*   **The Problem:** Organ compatibility requires matching exact genetic tissue markers to prevent organ rejection.
+*   **The Concept:** Transition from basic filtering to an advanced Genetic Matching Engine.
+*   **Implementation Flow:** Hospitals input their patient's 6 primary HLA tissue markers on the waitlist. When a donor organ is registered with its markers, the backend runs a fast genetic cross-matching algorithm against the waitlist. It generates a **Compatibility Score %** and auto-sorts the dashboard, placing patients with a high genetic match at the absolute top of the queue for the admins.
+
+## 11. Predictive "Donor Probability" AI (Machine Learning)
+*   **The Problem:** Organ shortages happen because systems react *after* a tragedy instead of predicting supply ahead of time.
+*   **The Concept:** A predictive analytics radar for Government Planners.
+*   **Implementation Flow:** Build a Python Flask API using a pre-trained scikit-learn model. The model analyzes massive datasets (e.g., historical trauma rates, vehicle accident statistics per state). OrganIQ generates a predictive heatmap: *"Maharashtra has a 78% probability of a donor organ becoming available in the next 48 hours."* This allows transport teams to preemptively position themselves in high-probability zones.
