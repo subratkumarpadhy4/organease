@@ -17,7 +17,7 @@ class Product {
         return res.json({ Products });
       }
     } catch (err) {
-      console.log(err);
+      console.log(err); return res.json({ error: "Database error: " + err.message });
     }
   }
 
@@ -62,7 +62,8 @@ class Product {
           return res.json({ success: "Product created successfully" });
         }
       } catch (err) {
-        console.log(err);
+        console.log("Error adding product: ", err);
+        return res.json({ error: "Failed to create product: " + err.message });
       }
     }
   }
@@ -116,7 +117,7 @@ class Product {
         await productModel.findByIdAndUpdate(pId, editData);
         return res.json({ success: "Product edit successfully" });
       } catch (err) {
-        console.log(err);
+        console.log(err); return res.json({ error: "Database error: " + err.message });
       }
     }
   }
@@ -132,7 +133,7 @@ class Product {
           return res.json({ success: "Product deleted successfully" });
         }
       } catch (err) {
-        console.log(err);
+        console.log(err); return res.json({ error: "Database error: " + err.message });
       }
     }
   }
@@ -151,7 +152,7 @@ class Product {
           return res.json({ Product: singleProduct });
         }
       } catch (err) {
-        console.log(err);
+        console.log(err); return res.json({ error: "Database error: " + err.message });
       }
     }
   }
@@ -270,7 +271,7 @@ class Product {
         });
         return res.json({ success: "Your review is deleted" });
       } catch (err) {
-        console.log(err);
+        console.log(err); return res.json({ error: "Database error: " + err.message });
       }
     }
   }
