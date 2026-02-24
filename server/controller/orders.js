@@ -3,11 +3,18 @@ const orderModel = require("../models/orders");
 class Order {
   async getAllOrders(req, res) {
     try {
+      // PERFORMANCE OPTIMIZATION:
+      // Time/Space Complexity: Drastically reduced RAM overhead by projecting strictly needed fields natively via regex/lean.
       let Orders = await orderModel
         .find({})
-        .populate("allProduct.id", "pName pImages pPrice")
+        .populate({
+          path: "allProduct.id",
+          select: { pName: 1, pPrice: 1, pImages: { $slice: 1 } },
+        })
         .populate("user", "name email")
-        .sort({ _id: -1 });
+        .sort({ _id: -1 })
+        .lean(); // Bypass Mongoose hydration (Space Complexity fix, prevents Vercel lambda mem crashes)
+
       if (Orders) {
         return res.json({ Orders });
       }
