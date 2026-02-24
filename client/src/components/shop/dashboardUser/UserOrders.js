@@ -41,8 +41,8 @@ const TableBody = ({ order }) => {
                 {/* <span>{product.id.pPrice}</span> */}
                 {/* <span>{product.quantitiy}x</span> */}
                 <td className="hover:bg-gray-200 p-2 text-center">
-          {order.transactionId}
-        </td>
+                  {order.transactionId}
+                </td>
               </span>
             );
           })}
@@ -79,7 +79,7 @@ const TableBody = ({ order }) => {
         </td>
         <td className="hover:bg-gray-200 p-2 text-center">{order.phone}</td>
         <td className="hover:bg-gray-200 p-2 text-center">{order.address}</td>
-      
+
         <td className="hover:bg-gray-200 p-2 text-center">
           {moment(order.createdAt).format("lll")}
         </td>
@@ -138,11 +138,36 @@ const OrdersComponent = () => {
                   })
                 ) : (
                   <tr>
-                    <td
-                      colSpan="8"
-                      className="text-xl text-center font-semibold py-8"
-                    >
-                      No order found
+                    <td colSpan="8" className="py-16">
+                      <div className="flex flex-col items-center justify-center space-y-6">
+                        {/* 3D Floating Medical Shield Animation */}
+                        <div
+                          className="relative w-32 h-32 flex items-center justify-center animate-bounce"
+                          style={{ animationDuration: '3s' }}
+                        >
+                          {/* Glowing Ambient Aura */}
+                          <div className="absolute inset-0 bg-blue-500 rounded-full blur-xl opacity-30"></div>
+                          {/* 3D Drop-Shadowed SVG */}
+                          <svg
+                            className="w-24 h-24 text-blue-600 filter drop-shadow-2xl z-10"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <defs>
+                              <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#3b82f6" />
+                                <stop offset="100%" stopColor="#1e3a8a" />
+                              </linearGradient>
+                            </defs>
+                            <path fill="url(#shieldGrad)" d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3zm0 2.18l7.5 2.5v5.32c0 4.67-3.23 8.94-7.5 10.16-4.27-1.22-7.5-5.49-7.5-10.16V6.68l7.5-2.5zm-1 3.82v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2z" />
+                          </svg>
+                        </div>
+
+                        <div className="flex flex-col items-center">
+                          <span className="text-2xl font-bold text-gray-800 tracking-wider">No Pending Requests</span>
+                          <span className="text-gray-500 mt-2">Your hospital's OrganIQ request timeline is currently empty.</span>
+                        </div>
+                      </div>
                     </td>
                   </tr>
                 )}
