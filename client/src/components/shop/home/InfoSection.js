@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import ThreeDModel from "./ThreeDModel"; // IMPORT THE NEW 3D COMPONENT
+import LogisticsGraphic from "./LogisticsGraphic"; // REPLACE THE 3D COMPONENT WITH LOGISTICS GRAPHIC
 
 const InfoSection = () => {
     return (
@@ -7,7 +7,7 @@ const InfoSection = () => {
             <section className="m-4 md:mx-8 md:my-16 bg-white shadow-lg rounded-xl overflow-hidden border border-gray-100 p-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
-                    {/* Left Column: Context & The 3D Component */}
+                    {/* Left Column: Context & The Logistic Component */}
                     <div className="flex flex-col space-y-6">
                         <h2 className="text-4xl font-extrabold text-gray-900 tracking-tight leading-tight">
                             Life-Saving Logistics, <br />
@@ -17,9 +17,9 @@ const InfoSection = () => {
                             When a family agrees to donate a loved one's organs, a critical ticking clock begins. OrganIQ exists to eliminate the chaos of medical logistics, bridging the gap between donor hospitals and recipients nationwide.
                         </p>
 
-                        {/* RENDER THE 3D INTERACTIVE CANVAS HERE */}
+                        {/* RENDER THE REFINED COMPONENT HERE */}
                         <div className="mt-4">
-                            <ThreeDModel />
+                            <LogisticsGraphic />
                         </div>
                     </div>
 
