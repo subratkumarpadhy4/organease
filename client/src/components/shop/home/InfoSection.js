@@ -4,65 +4,53 @@ import FloatingOrgans from "./FloatingOrgans";
 const InfoSection = () => {
     return (
         <Fragment>
-            <section className="mx-4 md:mx-12 my-24 bg-[#fff] rounded-[48px] overflow-hidden border border-slate-100 p-8 md:p-16 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.04)]">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            <section className="mx-4 md:mx-12 my-24 overflow-visible">
+                <div className="max-w-[1600px] mx-auto min-h-[900px] flex flex-col items-center justify-center relative">
 
-                    {/* Left Column: Premium Visualizer */}
-                    <div className="lg:col-span-12 xl:col-span-5 flex flex-col space-y-12">
-                        <div className="space-y-6">
-                            <span className="inline-block px-4 py-1.5 bg-rose-50 text-rose-600 rounded-full text-[12px] font-black uppercase tracking-[0.2em] border border-rose-100">
-                                Global Organ Network
-                            </span>
-                            <h2 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tight leading-[0.95] pb-2">
-                                Life-Saving <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-                                    Floating Logic.
-                                </span>
-                            </h2>
-                            <p className="text-xl text-slate-500 leading-relaxed font-medium max-w-lg">
-                                When match-availability occurs, every second is a lifeline. OrganIQ leverages a decentralized floating inventory system, perfectly synchronized across medical dispatch units.
-                            </p>
-                        </div>
+                    {/* Background massive glowing aura */}
+                    <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[600px] bg-indigo-500/5 blur-[180px] -z-20"></div>
 
-                        {/* RENDER THE FLOATING ORGANS COMPONENT */}
-                        <div className="relative group">
-                            <FloatingOrgans />
-                            <div className="absolute -bottom-8 inset-x-8 h-8 bg-blue-500/10 blur-[40px] opacity-100 -z-10"></div>
-                        </div>
+                    {/* Top Concentrated Header */}
+                    <div className="text-center space-y-4 mb-32 max-w-2xl px-4 animate-fade-in relative z-20">
+                        <span className="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black uppercase tracking-[0.4em] border border-blue-100 shadow-sm">
+                            Surgical Precision Logistics
+                        </span>
+                        <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter leading-none">
+                            Life-Saving <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">Perfectly Timed.</span>
+                        </h2>
                     </div>
 
-                    {/* Right Column: Premium Progression */}
-                    <div className="lg:col-span-12 xl:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 lg:pt-0">
-                        {/* Step 1 */}
-                        <div className="group p-10 bg-[#f8fafc] rounded-[32px] border border-transparent hover:border-indigo-100 hover:bg-white hover:shadow-2xl hover:shadow-indigo-500/5 transition-all duration-500">
-                            <div className="w-14 h-14 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-black text-xl mb-6 shadow-lg shadow-indigo-200">1</div>
-                            <h4 className="text-xl font-extrabold text-slate-900 mb-4">Medical Eval</h4>
-                            <p className="text-slate-500 leading-relaxed font-medium">Donor hospitals run extensive virology screens and tissue typing to guarantee viability.</p>
-                        </div>
-
-                        {/* Step 2 */}
-                        <div className="group p-10 bg-[#f8fafc] rounded-[32px] border border-transparent hover:border-blue-100 hover:bg-white hover:shadow-2xl hover:shadow-blue-500/5 transition-all duration-500">
-                            <div className="w-14 h-14 rounded-2xl bg-blue-500 flex items-center justify-center text-white font-black text-xl mb-6 shadow-lg shadow-blue-200">2</div>
-                            <h4 className="text-xl font-extrabold text-slate-900 mb-4">Core Matching</h4>
-                            <p className="text-slate-500 leading-relaxed font-medium">Our real-time matrix cross-references waitlists matching HLA profile and geography.</p>
-                        </div>
-
-                        {/* Step 3 */}
-                        <div className="group p-10 bg-[#f8fafc] rounded-[32px] border border-transparent hover:border-emerald-100 hover:bg-white hover:shadow-2xl hover:shadow-emerald-500/5 transition-all duration-500">
-                            <div className="w-14 h-14 rounded-2xl bg-emerald-500 flex items-center justify-center text-white font-black text-xl mb-6 shadow-lg shadow-emerald-200">3</div>
-                            <h4 className="text-xl font-extrabold text-slate-900 mb-4">Extraction</h4>
-                            <p className="text-slate-500 leading-relaxed font-medium">Surgeons perform extraction, flushing organs with cold solution to halt decay instantly.</p>
-                        </div>
-
-                        {/* Step 4 */}
-                        <div className="group p-10 bg-[#f8fafc] rounded-[32px] border border-transparent hover:border-rose-100 hover:bg-white hover:shadow-2xl hover:shadow-rose-500/5 transition-all duration-500">
-                            <div className="w-14 h-14 rounded-2xl bg-rose-500 flex items-center justify-center text-white font-black text-xl mb-6 shadow-lg shadow-rose-200">4</div>
-                            <h4 className="text-xl font-extrabold text-slate-900 mb-4">Relay Flight</h4>
-                            <p className="text-slate-500 leading-relaxed font-medium">Stored in smart-coolers, organs are sprinted via private jet or helicopter to the OR.</p>
-                        </div>
+                    {/* Massive visualizer covering more than half the window */}
+                    <div className="w-full relative z-10 scale-110 md:scale-125 lg:scale-150 transform transition-transform duration-1000">
+                        <FloatingOrgans />
                     </div>
+
+                    {/* Bottom minimal features - decorative support */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-32 max-w-4xl w-full px-4 relative z-20">
+                        {[
+                            { id: '01', title: 'Medical Eval', color: 'bg-rose-500' },
+                            { id: '02', title: 'Matrix Match', color: 'bg-indigo-500' },
+                            { id: '03', title: 'Extraction', color: 'bg-emerald-500' },
+                            { id: '04', title: 'Relay Relay', color: 'bg-blue-500' }
+                        ].map((item) => (
+                            <div key={item.id} className="p-6 bg-white/70 backdrop-blur-md border border-slate-100 rounded-3xl hover:shadow-2xl transition-all group flex flex-col items-center">
+                                <div className={`w-8 h-8 rounded-full ${item.color} flex items-center justify-center text-white text-[10px] font-black mb-3 shadow-lg group-hover:scale-110 transition-transform`}>{item.id}</div>
+                                <h5 className="text-[10px] font-black text-slate-800 uppercase tracking-widest">{item.title}</h5>
+                            </div>
+                        ))}
+                    </div>
+
                 </div>
             </section>
+
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
+            `}} />
         </Fragment>
     );
 };
